@@ -542,9 +542,7 @@ class Extend_Iso2DGaussianFitter(Iso2DGaussianFitter):
                       starting_params=None,
                       bounds=None,
                       args={},
-                      constraints=None,
-                      xtol=1e-4,
-                      ftol=1e-4):
+                      **kwargs):
         """
         Iterative_fit for models building on top of the Gaussian. Does not need to be
         redefined for new models. It is sufficient to define either
@@ -564,13 +562,8 @@ class Extend_Iso2DGaussianFitter(Iso2DGaussianFitter):
             Bounds for parameter minimization. The default is None.
         args : dictionary, optional
             Further arguments passed to iterative_search. The default is {}.
-        constraints: list of scipy.optimize.LinearConstraints and/or
-            scipy.optimize.NonLinearConstraints
-            if constraints are not None, will use trust-constr optimizer
-        xtol : float, optional
-            if allowed by optimizer, parameter tolerance for termination of fitting
-        ftol : float, optional
-            if allowed by optimizer, objective function tolerance for termination of fitting
+        **kwargs : additional keyword arguments will be passed to 
+            iterative_search, and from there to scipy.optimize.minimize
 
         Returns
         -------
@@ -601,9 +594,8 @@ class Extend_Iso2DGaussianFitter(Iso2DGaussianFitter):
                               starting_params=starting_params,
                               bounds=bounds,
                               args=args,
-                              constraints=constraints,
-                              xtol=xtol,
-                              ftol=ftol)
+                              **kwargs
+                              )
 
 
 class CSS_Iso2DGaussianFitter(Extend_Iso2DGaussianFitter):
